@@ -43,5 +43,6 @@ class MontyHallTest(unittest.TestCase):
         switch()
         self.assertEquals(doors['chosen'], 1)
 
+
 if __name__ == '__main__':
     unittest.main()

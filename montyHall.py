@@ -21,7 +21,27 @@ def switch():
     available = lambda x : x not in (doors['chosen'], doors['open'])
     doors['chosen'] = random.choice(filter(available, possible))
 
-if __name__ == '__main__':
+def playSwitch():
     choose()
-    peek()
-    
+    openDoor()
+    switch()
+
+def playStick():
+    choose()
+    openDoor()
+
+
+if __name__ == '__main__':
+
+    rounds = 10000
+    winSwitch = 0 
+    winStick = 0   
+    for i in range(rounds):
+        playSwitch()
+        if isWinner():
+            winSwitch += 1
+        playStick()
+        if isWinner():
+            winStick += 1 
+    print "Won %d of %d (%.02f%%) when switching doors" % (winSwitch, rounds, 100.0 * winSwitch / rounds)
+    print "Won %d of %d (%.02f%%) when not switching doors" % (winStick, rounds, 100.0 * winStick / rounds)

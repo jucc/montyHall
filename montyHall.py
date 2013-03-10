@@ -11,15 +11,16 @@ def choose():
 def isWinner():
     return doors['chosen'] == doors['prize']
 
-def openDoor():
+def pickExcluding(excludeList):
     possible = range(1,4)
-    available = lambda x : x not in (doors['chosen'], doors['prize'])
-    doors['open'] = random.choice(filter(available, possible))
+    available = lambda x: x not in excludeList
+    return random.choice(filter(available, possible))
 
+def openDoor():
+    doors['open'] = pickExcluding((doors['chosen'], doors['prize']))
+    
 def switch():
-    possible = range(1,4)
-    available = lambda x : x not in (doors['chosen'], doors['open'])
-    doors['chosen'] = random.choice(filter(available, possible))
+    doors['chosen'] = pickExcluding((doors['chosen'], doors['open']))
 
 def playSwitch():
     choose()
@@ -29,7 +30,6 @@ def playSwitch():
 def playStick():
     choose()
     openDoor()
-
 
 if __name__ == '__main__':
 
